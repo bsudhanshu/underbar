@@ -190,7 +190,7 @@
 
         _.each(letters, function(value, property, object) {
           iterations.push([value, property, object]);
-        });
+        });     
 
         expect(iterations).to.eql([
           ['dog', 'd', letters],
