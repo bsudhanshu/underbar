@@ -54,15 +54,14 @@
   // iterator function over each item in the input collection.
   _.each = function(collection, iterator) {
     if (Array.isArray(collection)) {
-      for (var i = 0; i < collection.length; i++) {
-        iterator(collection[i], i, collection);
-      }
+        for (var i = 0; i < collection.length; i++) {
+          iterator(collection[i], i, collection);
+        }
     } else {
-      for (var key in collection) {
-        iterator(collection[key], key, collection);
-      }
+        for (var key in collection) {
+          iterator(collection[key], key, collection);
+        }
     }
-    //iterator.apply(null, arguments);
   };
 
   // Returns the index at which value can be found in the array, or -1 if value
@@ -84,16 +83,44 @@
 
   // Return all elements of an array that pass a truth test.
   _.filter = function(collection, test) {
+    var result = [];
+    
+    _.each(collection, function(item) {
+      if (test(item)) {
+        result.push(item); 
+      }  
+    });
+
+    return result;  
   };
 
   // Return all elements of an array that don't pass a truth test.
   _.reject = function(collection, test) {
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
+
+    return _.filter(collection, function(item) {return !test(item)});
   };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
+    var result = [array[0]];
+    var isDuplicate = false;
+
+    for (var i = 1; i < array.length; i++) {
+      for (var j = 0; j < result.length; j++) {
+        if (array[i] === result[j]) {
+          isDuplicate = true;
+          break;
+        }
+      } 
+      if (!isDuplicate) {
+        result.push(array[i]);
+      }
+      isDuplicate = !isDuplicate;
+    }
+
+    return result;
   };
 
 
